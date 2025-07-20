@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>页面底部与留言</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .footer {
+            background: #f8f9fa !important;
+            backdrop-filter: blur(15px) !important;
+            -webkit-backdrop-filter: blur(15px) !important;
+            border-top: none !important;
+            color: black !important;
+            text-align: center !important;
+            padding: 20px 0 !important;
+            margin-top: 0 !important;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1) !important;
+            position: relative !important;
+            z-index: 10 !important;
+            border-radius: 0 !important;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        .footer-section h3 {
+            color: #1e3a8a !important;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            font-weight: 600;
+            justify-content: flex-start;
+        }
+        .contact-list, .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .contact-item, .link-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+        .contact-item a, .link-item a {
+            color: #1e3a8a;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .contact-item a:hover, .link-item a:hover {
+            color: #2563eb;
+        }
+        .message-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(123, 182, 247, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 1);
+            color: #333;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-sizing: border-box;
+        }
+        .message-actions {
+            margin-top: 12px;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #7bb6f7 0%, #3a7bfd 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #3a7bfd 0%, #7bb6f7 100%);
+        }
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .copyright p {
+            margin: 0 !important;
+            font-size: 14px !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+            color: rgba(30, 58, 138, 0.7) !important;
+        }
+        @media (max-width: 900px) {
+            .footer-sections {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+        }
+        @media (max-width: 650px) {
+            .footer-sections {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                margin-bottom: 18px;
+            }
+            .footer-content { padding: 0 6px;}
+        }
+    </style>
+</head>
+<body>
+<!-- ======================== 页面底部 ======================== -->
+<footer id="contact-section" class="footer">
+    <div class="footer-content">
+        <div class="footer-sections">
+            <!-- 联系我们区域 -->
+            <div class="footer-section contact-section">
+                <h3>
+                    <i class="fas fa-phone-alt" style="color: #7bb6f7; font-size: 16px;"></i> 联系我们
+                </h3>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="mailto:boyu@81nb.com">boyu@81nb.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="https://t.me/byyx_bot" target="_blank">纸飞机机器人</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="https://whatsapp.com/channel/0029VbBMetjDjiObJx7lOq3L" target="_blank">WhatsApp官方频道</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 友情链接区域 -->
+            <div class="footer-section links-section">
+                <h3>
+                    <i class="fas fa-link" style="color: #7bb6f7; font-size: 16px;"></i> 友情链接
+                </h3>
+                <div class="links-list">
+                    <div class="link-item">
+                        <i class="fas fa-globe" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="https://8y918.com" target="_blank">域名检测</a>
+                    </div>
+                    <div class="link-item">
+                        <i class="fas fa-robot" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="https://tawk.to/8y918" target="_blank">聊天机器人</a>
+                    </div>
+                    <div class="link-item">
+                        <i class="fab fa-apple" style="color: #7bb6f7; width: 18px; text-align: center; font-size: 16px;"></i>
+                        <a href="#" onclick="showNotification('iOS教程请联系客服获取', 'info')">iOS海外ID申请教程</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 留言区域 -->
+            <div class="footer-section message-section">
+                <h3>
+                    <i class="fas fa-comment-dots" style="color: #7bb6f7; font-size: 16px;"></i> 给我们留言
+                </h3>
+                <div class="message-form" style="width: 100%;">
+                    <textarea id="messageInput" placeholder="请输入您的留言或建议..." rows="3"></textarea>
+                    <div class="message-actions">
+                        <button onclick="submitMessage()" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            发送留言
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 版权信息 -->
+        <div class="copyright">
+            <p>&copy; 2025 域名验证中心. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ======================== JavaScript 脚本区域 ======================== -->
+<script>
+    // 通用通知（如需自定义可替换为自己全局通知组件）
+    function showNotification(msg, type='info') {
+        let bar = document.getElementById('notificationBar');
+        if(!bar) {
+            bar = document.createElement('div');
+            bar.id = 'notificationBar';
+            bar.style.position = 'fixed';
+            bar.style.left = '50%';
+            bar.style.top = '18px';
+            bar.style.transform = 'translateX(-50%)';
+            bar.style.minWidth = '180px';
+            bar.style.maxWidth = '90vw';
+            bar.style.zIndex = '9999';
+            bar.style.padding = '12px 22px';
+            bar.style.borderRadius = '8px';
+            bar.style.fontSize = '15px';
+            bar.style.fontWeight = '600';
+            bar.style.boxShadow = '0 4px 16px rgba(59,130,246,0.15)';
+            bar.style.textAlign = 'center';
+            bar.style.pointerEvents = 'none';
+            document.body.appendChild(bar);
+        }
+        let bg = '#3b82f6', color = '#fff';
+        if(type==='success') { bg='#10b981'; color='#fff'; }
+        else if(type==='error') { bg='#ef4444'; color='#fff'; }
+        else if(type==='warning') { bg='#f59e0b'; color='#222'; }
+        else if(type==='info') { bg='#2563eb'; color='#fff'; }
+        bar.textContent = msg;
+        bar.style.background = bg;
+        bar.style.color = color;
+        bar.style.display = 'block';
+        bar.style.opacity = '1';
+        setTimeout(()=>{ bar.style.opacity='0'; }, 2200);
+        setTimeout(()=>{ bar.style.display='none'; }, 2700);
+    }
+
+    // 留言功能（本地模拟，后端可用时可改为API提交）
+    function submitMessage() {
+        var msg = document.getElementById('messageInput').value.trim();
+        if(msg.length < 2) {
+            showNotification('请输入有效留言内容', 'warning');
+            return;
+        }
+        // TODO: 可集成后端存储，或邮件推送
+        showNotification('留言已提交，感谢您的反馈！', 'success');
+        document.getElementById('messageInput').value = '';
+    }
+</script>
+</body>
+</html>

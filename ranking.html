@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>优质域名测速排名</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      background: #f6f8fa;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #e0e0e0;
+      padding: 30px 23px 32px 23px;
+    }
+    h2 {
+      color: #2563eb;
+      text-align: center;
+      margin: 0 0 8px 0;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      color: #666;
+      text-align: center;
+      font-size: 1.08em;
+      margin-bottom: 18px;
+    }
+    .refresh-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .refresh-btn {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 6px #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .refresh-btn:active {
+      background: #1d4ed8;
+    }
+    .tips {
+      font-size: 13px;
+      color: #777;
+      margin: 0 0 12px 0;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+    th, td {
+      text-align: center;
+      padding: 12px 6px;
+    }
+    th {
+      background: #f1f5f9;
+      color: #2563eb;
+      font-weight: 700;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    tr {
+      border-bottom: 1px solid #f3f4f6;
+      transition: background .2s;
+    }
+    tr:hover {
+      background: #f0f9ff;
+    }
+    .fastest {
+      background: linear-gradient(90deg, #bbf7d0 60%, #fff 100%);
+      font-weight: bold;
+      color: #059669;
+    }
+    .slowest {
+      background: linear-gradient(90deg, #fee2e2 60%, #fff 100%);
+      color: #be123c;
+    }
+    .status-ok {
+      color: #10b981;
+      font-weight: 600;
+    }
+    .status-fail {
+      color: #ef4444;
+      font-weight: 600;
+    }
+    .visit-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 13px;
+      font-size: 0.96em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+    .visit-btn:hover {
+      background: #1d4ed8;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 10px 3px 18px 3px; }
+      th, td { padding: 8px 3px; font-size: 13px;}
+      .refresh-bar { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2><i class="fas fa-star"></i> 优质域名测速排名</h2>
+  <div class="subtitle">实时测速，优选高速可用域名，点击一键直达！</div>
+  <div class="refresh-bar">
+    <span class="tips"><i class="fas fa-info-circle"></i> 测速仅供参考，实际访问速度受网络环境影响。</span>
+    <button class="refresh-btn" onclick="startRanking()">
+      <i class="fas fa-sync-alt"></i>
+      刷新测速
+    </button>
+  </div>
+  <div class="table-wrap">
+    <table id="rankingTable">
+      <thead>
+      <tr>
+        <th>排名</th>
+        <th>域名</th>
+        <th>测速(ms)</th>
+        <th>状态</th>
+        <th>访问</th>
+      </tr>
+      </thead>
+      <tbody id="rankingBody">
+      <tr><td colspan="5" style="color:#9ca3af;">测速中，请稍候...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// 域名验证关键词列表（可根据实际需要使用）
+const validationKeywords = [
+    '博鱼', '游戏', '登录', '注册新账号', '免费试玩', '活动', '优惠', 
+    '下载', '客服', '存款', '密码', '首页', '体育', '娱乐', '彩票',
+    '真人', '电子', '棋牌', '捕鱼', '赛事', '直播', '充值', '提现'
+];
+
+// 域名列表
+const domainList = [
+    'boyuyx.top', 'bomao666.vip', 'boyu8888.vip', '8y168.com', '8y188.com', 
+    'www.81yx.cc', 'www.81yx.vip', '8y88.vip', '8y88.top', 'ghkla3499.com', 
+    '8y521.com', '8y520.com', '8y668.com', 'boyu003.com', 'boyu08.com', 
+    '8y718.com', '8y789.com', '8y918.com', '8y84279hhd.com', '8yapp.com', 
+    'boyuyouxi.com', 'boyu005.com', 'boyu006.com', 'boyu004.com', '2hzsvip.com', 
+    '1hzvip.com', 'fhzz.online', 'fhzz.shop', 'viphyy866887.com', '8y258.com', 
+    '8y369.com', '1hzsvip.com', '2hzvip.com', 'fhzz2024.com', 'bomao003.com', 
+    'bomao002.com', 'opg00993rd.com', '120431sf8y.com', '1hz8899.com', 'yhzvip.com', 
+    '8y68.com', '8y998.com', 'app.boyu003.com', 'boyuyouxi9.com', 'boyuyouxi8.com', 
+    'boyuyouxi7.com', 'boyuyouxi6.com', 'boyuyouxi5.com', 'boyuyouxi3.com', 
+    'boyuyouxi2.com', 'boyuyouxi1.com', 'fhvip8.vip', 'n2hz01.com', 'yhzvip.vip',
+    'bygame1vip.com', 'bygame2vip.com', '518by.com', '818by.com', 'wj88.818by.com',
+    'dl.518by.com', 'by.518by.com', 'by.818by.com', '8y98.com'
+];
+
+// 测速超时(ms)
+const TEST_TIMEOUT = 3500;
+
+// 测试所有域名，返回测速结果数组
+function startRanking() {
+  const tbody = document.getElementById('rankingBody');
+  tbody.innerHTML = `<tr><td colspan="5" style="color:#9ca3af;">测速中，请稍候...</td></tr>`;
+  testAllDomains(domainList).then(results => {
+    showRanking(results);
+  });
+}
+
+// 测试所有域名
+function testAllDomains(domains) {
+  return Promise.all(domains.map(domain => testDomain(domain))).then(results => {
+    // 排序：先可用按速度升序，后不可用
+    results.sort((a, b) => {
+      if (a.status !== b.status) return a.status === 'ok' ? -1 : 1;
+      if (a.status !== 'ok') return 0;
+      return a.time - b.time;
+    });
+    return results;
+  });
+}
+
+// 单个域名测速，采用图片探测法或fetch法
+function testDomain(domain) {
+  // 采用图片方式绕过CORS限制
+  return new Promise(resolve => {
+    const url = 'https://' + domain + '/favicon.ico?' + Math.random();
+    let timer;
+    let img = new window.Image();
+    let startTime = Date.now();
+    let finished = false;
+
+    function done(status) {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      resolve({
+        domain,
+        time: status === 'ok' ? Date.now() - startTime : TEST_TIMEOUT,
+        status
+      });
+      img.onload = img.onerror = null;
+      img = null;
+    }
+
+    timer = setTimeout(() => done('fail'), TEST_TIMEOUT);
+
+    img.onload = () => done('ok');
+    img.onerror = () => done('fail');
+    img.src = url;
+  });
+}
+
+// 展示测速排名
+function showRanking(results) {
+  const tbody = document.getElementById('rankingBody');
+  if (!results.length) {
+    tbody.innerHTML = `<tr><td colspan="5" style="color:#9ca3af;">暂无域名结果</td></tr>`;
+    return;
+  }
+  // 找出最快和最慢可用
+  const fastestIndex = results.findIndex(r => r.status === 'ok');
+  const slowestIndex = (() => {
+    let idx = -1, maxTime = 0;
+    results.forEach((r,i) => {
+      if (r.status === 'ok' && r.time > maxTime) { maxTime = r.time; idx = i;}
+    }); return idx;
+  })();
+
+  tbody.innerHTML = results.map((r, i) => {
+    let rowClass = '';
+    if (i === fastestIndex && r.status === 'ok') rowClass = 'fastest';
+    if (i === slowestIndex && r.status === 'ok') rowClass = 'slowest';
+
+    return `<tr class="${rowClass}">
+      <td>${r.status === 'ok' ? (fastestIndex >= 0 ? i+1 : '-') : '-'}</td>
+      <td style="font-family:monospace;">${r.domain}</td>
+      <td>${r.status === 'ok' ? r.time : '-'}</td>
+      <td class="${r.status === 'ok' ? 'status-ok':'status-fail'}">
+        ${r.status === 'ok' ? '可用' : '超时'}
+      </td>
+      <td>${r.status === 'ok' 
+        ? `<a class="visit-btn" href="https://${r.domain}" rel="noopener" target="_blank"><i class="fas fa-paper-plane"></i>直达</a>`
+        : ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+// 页面加载自动测速
+window.onload = startRanking;
+</script>
+</body>
+</html>

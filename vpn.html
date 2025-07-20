@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>VPN软件推荐与教程</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body { font-family: 'Microsoft YaHei', Arial, sans-serif; background: #f6f8fa; margin: 0; padding: 0; }
+    .vpn-section { max-width: 900px; margin: 32px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #e0e0e0; padding: 26px 30px; }
+    .vpn-section h2 { font-size: 2em; margin-bottom: 12px; }
+    .vpn-list { display: flex; flex-wrap: wrap; gap: 22px; }
+    .vpn-item { background: #f9fafb; border-radius: 8px; box-shadow: 0 1px 3px #ececec; padding: 18px 14px; flex: 1 1 270px; min-width: 270px; max-width: 320px; display: flex; flex-direction: column; }
+    .vpn-header { display: flex; align-items: center; margin-bottom: 10px; }
+    .vpn-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; margin-right: 14px; }
+    .vpn-info h4 { margin: 0; font-size: 1.15em; color: #3375bb; }
+    .vpn-desc { color: #888; font-size: 0.97em; }
+    .vpn-actions { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+    .vpn-btn { background: #3375bb; color: #fff; border: none; border-radius: 5px; padding: 6px 12px; font-size: 0.97em; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.2s; }
+    .vpn-btn:hover { background: #235892; }
+    @media (max-width: 700px) {
+      .vpn-list { flex-direction: column; }
+      .vpn-item { min-width: 0; max-width: unset; }
+    }
+    /* 弹窗样式 */
+    .modal-mask {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.45); z-index: 2000; display: none; justify-content: center; align-items: center;
+    }
+    .modal-dialog {
+      background: #fff; border-radius: 10px; max-width: 410px; width: 90vw; max-height: 83vh; overflow-y: auto; box-shadow: 0 6px 32px #0002; padding: 25px 18px 20px 18px; position: relative;
+      animation: modalIn 0.2s;
+    }
+    @keyframes modalIn { from { transform: translateY(30px) scale(.95); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-close { position: absolute; right: 12px; top: 10px; background: none; border: none; font-size: 1.3em; color: #888; cursor: pointer;}
+    .modal-dialog h3 { margin: 0 0 15px 0; color: #3375bb; }
+    .tutorial-step { margin-bottom: 18px; }
+    .tutorial-step img { width: 100%; border-radius: 4px; margin-top: 8px; }
+    .tutorial-step h5 { margin: 0 0 7px 0; font-size: 1.05em; color: #245088; }
+    .tutorial-step p { margin: 6px 0 0 0; color: #666; font-size: 0.97em;}
+  </style>
+</head>
+<body>
+<div class="vpn-section">
+  <h2><i class="fas fa-shield-alt"></i> VPN软件推荐</h2>
+  <div class="vpn-list">
+
+    <!-- 示例VPN1 -->
+    <div class="vpn-item">
+      <div class="vpn-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/ExpressVPN_logo.png" alt="ExpressVPN" class="vpn-logo">
+        <div class="vpn-info">
+          <h4>ExpressVPN</h4>
+          <span class="vpn-desc">全球高速VPN，支持多平台，安全可靠。</span>
+        </div>
+      </div>
+      <div class="vpn-actions">
+        <a href="https://www.expressvpn.com/zh-cn/" class="vpn-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="vpn-btn" onclick="showTutorialModal('expressvpn')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- 示例VPN2 -->
+    <div class="vpn-item">
+      <div class="vpn-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/NordVPN_logo.png" alt="NordVPN" class="vpn-logo">
+        <div class="vpn-info">
+          <h4>NordVPN</h4>
+          <span class="vpn-desc">性价比高，服务器分布广，隐私保护强。</span>
+        </div>
+      </div>
+      <div class="vpn-actions">
+        <a href="https://nordvpn.com/zh-cn/" class="vpn-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="vpn-btn" onclick="showTutorialModal('nordvpn')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- 示例VPN3 -->
+    <div class="vpn-item">
+      <div class="vpn-header">
+        <img src="https://static.surfshark.com/assets/webapp/v3/images/logo/logo-full.svg" alt="Surfshark" class="vpn-logo">
+        <div class="vpn-info">
+          <h4>Surfshark</h4>
+          <span class="vpn-desc">不限设备数，适合家庭用户，速度稳定。</span>
+        </div>
+      </div>
+      <div class="vpn-actions">
+        <a href="https://surfshark.com/zh/" class="vpn-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="vpn-btn" onclick="showTutorialModal('surfshark')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 通用弹窗 -->
+<div class="modal-mask" id="modal-mask">
+  <div class="modal-dialog" id="modal-dialog">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// 教程内容：可根据实际需求扩展
+const tutorialData = {
+  'expressvpn': {
+    title: "ExpressVPN 使用教程",
+    steps: [
+      {
+        title: "步骤1：访问官网并下载",
+        img: "https://www.expressvpn.com/images/pages/vpn-software/windows/app-screenshot.png",
+        text: "访问 ExpressVPN 官网，选择对应操作系统下载安装程序。"
+      },
+      {
+        title: "步骤2：注册并激活账号",
+        img: "https://via.placeholder.com/400x220/3375BB/ffffff?text=注册账号",
+        text: "注册ExpressVPN账号，购买套餐后输入激活码完成激活。"
+      },
+      {
+        title: "步骤3：连接服务器",
+        img: "https://via.placeholder.com/400x220/3375BB/ffffff?text=连接服务器",
+        text: "打开客户端，选择目标国家/地区服务器，一键连接即可科学上网。"
+      }
+    ]
+  },
+  'nordvpn': {
+    title: "NordVPN 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载与安装",
+        img: "https://nordvpn.com/images/nordvpn-og-social.png",
+        text: "进入NordVPN官网，下载对应系统的客户端并安装。"
+      },
+      {
+        title: "步骤2：注册并登录",
+        img: "https://via.placeholder.com/400x220/0082c9/ffffff?text=注册登录",
+        text: "注册NordVPN账号，打开软件登录你的账号。"
+      },
+      {
+        title: "步骤3：选择并连接节点",
+        img: "https://via.placeholder.com/400x220/0082c9/ffffff?text=连接节点",
+        text: "在地图或列表中选择节点，点击连接即可安全上网。"
+      }
+    ]
+  },
+  'surfshark': {
+    title: "Surfshark 使用教程",
+    steps: [
+      {
+        title: "步骤1：官网下载客户端",
+        img: "https://surfshark.com/_ipx/w_3840,q_75/https://images.ctfassets.net/9s6o2s4dfxdr/4X2k6p0lB1DqjXxv0D4N2v/2e6e5a2f9b6ee3e2c1cd11e6c7c1c1e5/surfshark-apps.png",
+        text: "访问Surfshark官网，下载适合你设备的安装包。"
+      },
+      {
+        title: "步骤2：创建账号并购买服务",
+        img: "https://via.placeholder.com/400x220/00bfae/ffffff?text=注册账号",
+        text: "创建Surfshark账号，选择套餐付款后激活服务。"
+      },
+      {
+        title: "步骤3：一键连接VPN",
+        img: "https://via.placeholder.com/400x220/00bfae/ffffff?text=一键连接",
+        text: "登录客户端，选择任意服务器，一键连接即可加速上网。"
+      }
+    ]
+  }
+};
+// 弹窗逻辑
+function showTutorialModal(vpn) {
+  const modal = document.getElementById('modal-mask');
+  const content = document.getElementById('modal-content');
+  const data = tutorialData[vpn];
+  if (!data) { content.innerHTML = "<p>暂无该VPN教程</p>"; modal.style.display = "flex"; return; }
+  let html = `<h3>${data.title}</h3>`;
+  data.steps.forEach(step => {
+    html += `<div class="tutorial-step">
+      <h5>${step.title}</h5>
+      <img src="${step.img}" alt="${step.title}">
+      <p>${step.text}</p>
+    </div>`;
+  });
+  content.innerHTML = html;
+  modal.style.display = "flex";
+}
+function closeModal() {
+  document.getElementById('modal-mask').style.display = "none";
+}
+</script>
+</body>
+</html>

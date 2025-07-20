@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>域名验证中心</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: #f6f8fa;
+      margin: 0;
+      padding: 0;
+    }
+    .page-content {
+      min-height: 100vh;
+      background: #f6f8fa;
+    }
+    .page-header {
+      text-align: center;
+      padding: 36px 0 12px 0;
+    }
+    .page-title {
+      font-size: 2em;
+      color: #033177;
+      margin-bottom: 8px;
+      display: flex;
+      gap:10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-subtitle {
+      font-size: 1.12em;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .whois-container {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px #e0e0e0;
+      padding: 30px 25px 30px 25px;
+      margin-top: 0;
+    }
+    .whois-search-box {
+      margin-bottom: 20px;
+    }
+    .search-input-container {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #d1d5db;
+      border-radius: 7px;
+      padding: 7px 10px;
+      background: #f9fafb;
+      box-shadow: 0 1px 1.5px #eee;
+      gap: 10px;
+    }
+    .search-icon {
+      color: #3375bb;
+      font-size: 1.2em;
+    }
+    .whois-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 1.08em;
+      outline: none;
+      padding: 8px 0;
+    }
+    .whois-search-btn {
+      background: #3375bb;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 18px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .whois-search-btn:hover {
+      background: #245088;
+    }
+    .whois-tools {
+      text-align: right;
+      margin-top: 11px;
+      margin-bottom: 18px;
+    }
+    .whois-tool-link {
+      display: inline-block;
+      margin-left: 13px;
+      color: #2463a2;
+      font-size: 1em;
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .whois-tool-link:hover {
+      color: #033177;
+      text-decoration: underline;
+    }
+    .whois-result {
+      background: #f6f8fa;
+      border-radius: 8px;
+      padding: 22px 18px 14px 18px;
+      margin-top: 22px;
+      box-shadow: 0 1px 3px #ececec;
+      min-height: 60px;
+      font-size: 1.05em;
+      animation: fadeIn 0.33s;
+    }
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 12px;
+    }
+    .clickable-domain {
+      font-size: 1.14em;
+      color: #033177;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0;
+      transition: color 0.2s;
+    }
+    .clickable-domain:hover {
+      color: #2463a2;
+      text-decoration: underline;
+    }
+    .status {
+      font-size: 0.99em;
+      padding: 3px 12px;
+      border-radius: 12px;
+      background: #e8f6eb;
+      color: #219150;
+      display: inline-block;
+    }
+    .speed-info {
+      margin-bottom: 7px;
+    }
+    .speed-label {
+      color: #888;
+    }
+    .speed-value {
+      font-weight: bold;
+      color: #3375bb;
+    }
+    .domain-click-hint {
+      text-align: center;
+      margin: 10px 0 0 0;
+      color: #333;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px);}
+      to { opacity: 1; transform: none;}
+    }
+  </style>
+</head>
+<body>
+<!-- ======================== 域名验证页面 ======================== -->
+<div id="domain-verify-page" class="page-content active">
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-search"></i>
+      域名验证中心
+    </h1>
+    <p class="page-subtitle">专业的域名验证、测速与访问服务</p>
+  </div>
+  <div class="whois-container" style="max-width: 800px; margin: 0 auto;">
+    <div class="whois-search-box">
+      <div class="search-input-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="domainInput" placeholder="输入域名进行验证" class="whois-input" autocomplete="off">
+        <button id="verifyBtn" class="whois-search-btn" onclick="verifyDomain()">
+          验证
+        </button>
+      </div>
+    </div>
+    <div class="whois-tools">
+      <a onclick="switchPage('ranking')" class="whois-tool-link"><i class="fas fa-star"></i> 优质域名推荐</a>
+      <a onclick="switchPage('ip-tools')" class="whois-tool-link"><i class="fas fa-network-wired"></i> IP工具箱</a>
+    </div>
+    <!-- 验证结果显示 -->
+    <div id="verifyResult" class="whois-result" style="display: none;">
+      <div class="result-header">
+        <h3 id="resultDomain" class="clickable-domain" onclick="showVerifyDomainAccess()"></h3>
+        <span id="resultStatus" class="status"></span>
+      </div>
+      <div class="speed-info">
+        <span class="speed-label">测速结果：</span>
+        <span id="speedResult" class="speed-value"></span>
+      </div>
+      <div class="domain-click-hint">
+        <i class="fas fa-hand-pointer"></i> 点击域名显示访问入口
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('domainInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ e.preventDefault(); verifyDomain(); }
+});
+document.getElementById('domainInput').focus();
+
+function verifyDomain() {
+  var domain = document.getElementById('domainInput').value.trim();
+  var verifyResult = document.getElementById('verifyResult');
+  var resultDomain = document.getElementById('resultDomain');
+  var resultStatus = document.getElementById('resultStatus');
+  var speedResult = document.getElementById('speedResult');
+
+  if (!domain || !/^([a-z0-9-]+\.)+[a-z]{2,}$/.test(domain)) {
+    verifyResult.style.display = 'block';
+    resultDomain.textContent = '';
+    resultStatus.textContent = '请输入正确的域名格式，例如 example.com';
+    resultStatus.style.background = "#ffeaea";
+    resultStatus.style.color = "#c40a0a";
+    speedResult.textContent = '';
+    return;
+  }
+
+  verifyResult.style.display = 'block';
+  resultDomain.textContent = domain;
+  resultStatus.textContent = '验证中...';
+  resultStatus.style.background = "#e8f6eb";
+  resultStatus.style.color = "#219150";
+  speedResult.textContent = '测速中...';
+
+  // 可替换为自己的接口：这里只做演示（模拟查询延迟和随机结果）
+  setTimeout(function() {
+    resultStatus.textContent = '域名可用';
+    resultStatus.style.background = "#e8f6eb";
+    resultStatus.style.color = "#219150";
+    speedResult.textContent = (Math.random()*200+50).toFixed(1) + ' ms';
+  }, 900);
+}
+
+function showVerifyDomainAccess() {
+  var domain = document.getElementById('resultDomain').textContent;
+  if(domain){
+    window.open('http://' + domain, '_blank');
+  }
+}
+
+// 跳转页面按钮模拟（如需SPA切换可自定义实现）
+function switchPage(page){
+  alert('跳转到 ' + (page === 'ranking' ? '优质域名推荐' : 'IP工具箱') + ' 页面');
+}
+</script>
+</body>
+</html>

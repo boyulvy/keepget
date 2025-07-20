@@ -1,0 +1,16 @@
+<div class="search-section">
+  <h2><i class="fas fa-tachometer-alt"></i> 实时测速</h2>
+  <form class="search-box" id="speedtest-form">
+    <input class="domain-input" id="speedtest-input" type="text" placeholder="输入域名或IP" required>
+    <button class="btn-verify" type="submit">测速</button>
+  </form>
+  <div id="speedtest-result"></div>
+</div>
+<script>
+document.getElementById('speedtest-form').onsubmit = function(e) {
+  e.preventDefault();
+  let input = document.getElementById('speedtest-input').value.trim();
+  document.getElementById('speedtest-result').textContent = input ? `测速结果：${input}` : '请输入域名或IP';
+  // 你可以在这里接入实际测速API并显示结果
+};
+</script>

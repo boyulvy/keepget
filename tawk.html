@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>在线咨询</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* 可选：页面美化，仅供演示 */
+    body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #f6f8fa; margin: 0; min-height: 100vh;}
+    .open-cs-btn {
+      position: fixed; right: 24px; bottom: 32px; z-index: 2000;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff; border: none; border-radius: 50px; font-size: 1.2em;
+      padding: 14px 24px; box-shadow: 0 4px 16px rgba(59,130,246,0.12);
+      cursor: pointer; font-weight: 700; transition: box-shadow .2s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .open-cs-btn:hover { box-shadow: 0 6px 24px rgba(59,130,246,0.18);}
+  </style>
+</head>
+<body>
+  <button class="open-cs-btn" onclick="openCustomerService()">
+    <i class="fas fa-headset"></i> 在线咨询
+  </button>
+
+  <!-- 内嵌客服窗口（初始隐藏） -->
+  <div id="tawk_6856f01e552cdd190f7b54ac" style="display:none;">
+    <!-- Tawk.to脚本会自动填充这里的iframe -->
+  </div>
+
+  <!-- Tawk.to脚本（请用你的实际ID替换） -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/6856f01e552cdd190f7b54ac/1j069e0nj'; // 请替换为你的Tawk.to实际src
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+
+  <script>
+    // ======================== 客服系统函数 ========================
+    // 打开客服系统
+    function openCustomerService() {
+      showCustomerServiceModal();
+    }
+
+    // 关闭Tawk聊天窗口
+    function closeTawkChat() {
+      const tawkContainer = document.getElementById('tawk_6856f01e552cdd190f7b54ac');
+      const backdrop = document.getElementById('tawk-backdrop');
+      if (tawkContainer) tawkContainer.style.display = 'none';
+      if (backdrop) backdrop.remove();
+    }
+
+    // 显示客服选项模态框
+    function showCustomerServiceModal() {
+      const modal = document.createElement('div');
+      modal.id = 'customerServiceModal';
+      modal.className = 'customer-service-modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-headset"></i> 联系客服</h3>
+            <button class="close-btn" onclick="closeCustomerServiceModal()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="service-options">
+              <div class="service-item">
+                <i class="fas fa-comments"></i>
+                <h4>在线聊天</h4>
+                <p>与客服人员实时对话</p>
+                <button class="btn btn-primary" onclick="startChat()">开始聊天</button>
+              </div>
+              <div class="service-item">
+                <i class="fas fa-envelope"></i>
+                <h4>邮件咨询</h4>
+                <p>tickets@boyu002.p.tawk.email</p>
+                <button class="btn btn-info" onclick="sendEmail()">发送邮件</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      addModalStyles();
+    }
+
+    // 添加模态框样式
+    function addModalStyles() {
+      if (document.getElementById('modalStyles')) return;
+      const style = document.createElement('style');
+      style.id = 'modalStyles';
+      style.textContent = `
+        .customer-service-modal {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000; animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+          background: white; border-radius: 12px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; animation: slideUp 0.3s ease;
+        }
+        .modal-header {
+          display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #eee; background: rgb(3, 49, 119); color: white; border-radius: 12px 12px 0 0;
+        }
+        .modal-header h3 { margin: 0; font-size: 18px; }
+        .close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: white; padding: 5px; border-radius: 4px; transition: background 0.2s;}
+        .close-btn:hover { background: rgba(255,255,255,0.1);}
+        .service-options { padding: 20px;}
+        .service-item { text-align: center; padding: 20px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; transition: all 0.2s;}
+        .service-item:hover { border-color: rgb(3, 49, 119); box-shadow: 0 2px 8px rgba(3, 49, 119, 0.1);}
+        .service-item i { font-size: 2em; color: rgb(3, 49, 119); margin-bottom: 10px; }
+        .service-item h4 { margin: 10px 0; color: #333;}
+        .service-item p { color: black; margin-bottom: 15px; font-size: 14px;}
+        .btn { background: #2563eb; color: white; border: none; border-radius: 6px; padding: 8px 18px; font-size: 15px; font-weight: 600; cursor: pointer;}
+        .btn-primary { background: #2563eb;}
+        .btn-info { background: #06b6d4;}
+        .btn:hover { opacity: 0.8;}
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+          .modal-content { width: 95%; max-width: 95%; margin: 10px; max-height: 90vh; border-radius: 8px;}
+          .modal-header { padding: 15px; border-radius: 8px 8px 0 0;}
+          .modal-header h3 { font-size: 16px;}
+          .service-options { padding: 15px;}
+          .service-item { padding: 15px; margin-bottom: 12px;}
+          .service-item i { font-size: 1.8em;}
+          .service-item h4 { font-size: 16px; margin: 8px 0;}
+          .service-item p { font-size: 13px; margin-bottom: 12px;}
+          .btn { padding: 10px 16px; font-size: 14px; min-height: 44px;}
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // 关闭客服模态框
+    function closeCustomerServiceModal() {
+      const modal = document.getElementById('customerServiceModal');
+      if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => { if (modal.parentNode) modal.parentNode.removeChild(modal); }, 300);
+      }
+    }
+
+    // 开始聊天
+    function startChat() {
+      closeCustomerServiceModal();
+      const tawkContainer = document.getElementById('tawk_6856f01e552cdd190f7b54ac');
+      if (tawkContainer && typeof Tawk_API !== 'undefined') {
+        tawkContainer.style.display = 'block';
+        tawkContainer.style.position = 'fixed';
+        tawkContainer.style.top = '50%';
+        tawkContainer.style.left = '50%';
+        tawkContainer.style.transform = 'translate(-50%, -50%)';
+        tawkContainer.style.zIndex = '9999';
+        tawkContainer.style.borderRadius = '12px';
+        tawkContainer.style.boxShadow = '0 8px 32px rgba(0,0,0,0.3)';
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          tawkContainer.style.width = '95vw';
+          tawkContainer.style.height = '85vh';
+          tawkContainer.style.maxWidth = '95vw';
+          tawkContainer.style.maxHeight = '85vh';
+        } else {
+          tawkContainer.style.width = '400px';
+          tawkContainer.style.height = '600px';
+          tawkContainer.style.maxWidth = '90vw';
+          tawkContainer.style.maxHeight = '90vh';
+        }
+        // 添加背景遮罩
+        let backdrop = document.getElementById('tawk-backdrop');
+        if (!backdrop) {
+          backdrop = document.createElement('div');
+          backdrop.id = 'tawk-backdrop';
+          backdrop.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.5); z-index: 9998; cursor: pointer;`;
+          backdrop.onclick = function() { closeTawkChat(); };
+          document.body.appendChild(backdrop);
+        }
+      } else if (typeof Tawk_API !== 'undefined') {
+        Tawk_API.showWidget();
+        Tawk_API.maximize();
+      } else {
+        alert('客服系统正在加载中，请稍后再试或直接发送邮件至：tickets@boyu002.p.tawk.email');
+      }
+    }
+
+    // 发送邮件
+    function sendEmail() {
+      const subject = encodeURIComponent('客服咨询');
+      const body = encodeURIComponent('您好，我需要咨询...');
+      const mailtoLink = `mailto:tickets@boyu002.p.tawk.email?subject=${subject}&body=${body}`;
+      window.open(mailtoLink, '_blank');
+      closeCustomerServiceModal();
+    }
+  </script>
+</body>
+</html>

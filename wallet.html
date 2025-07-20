@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>钱包推荐与教程</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body { font-family: 'Microsoft YaHei', Arial, sans-serif; background: #f6f8fa; margin: 0; padding: 0; }
+    .download-section { max-width: 900px; margin: 30px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #e0e0e0; padding: 24px 30px; }
+    .download-section h2 { font-size: 2em; margin-bottom: 10px; }
+    .section-divider { height: 1px; background: #e5e5e5; margin: 18px 0; }
+    .tools-tab-nav { display: flex; gap: 10px; margin-bottom: 18px; }
+    .tab-btn { background: #f4f7fb; border: none; border-radius: 6px 6px 0 0; padding: 10px 26px; font-size: 1em; cursor: pointer; color: #555; }
+    .tab-btn.active, .tab-btn:hover { background: #3375bb; color: #fff; }
+    .tab-content { margin-top: 10px; }
+    .wallet-container { display: flex; flex-wrap: wrap; gap: 22px; }
+    .wallet-item { background: #f9fafb; border-radius: 8px; box-shadow: 0 1px 3px #ececec; padding: 18px 14px; flex: 1 1 270px; min-width: 270px; max-width: 320px; display: flex; flex-direction: column; }
+    .wallet-header { display: flex; align-items: center; margin-bottom: 10px; }
+    .wallet-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; margin-right: 14px; }
+    .wallet-info h4 { margin: 0; font-size: 1.15em; color: #3375bb; }
+    .wallet-desc { color: #888; font-size: 0.97em; }
+    .wallet-actions { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+    .wallet-btn { background: #3375bb; color: #fff; border: none; border-radius: 5px; padding: 6px 12px; font-size: 0.97em; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.2s; }
+    .wallet-btn:hover { background: #235892; }
+    .platform-btn { margin-right: 8px; background: #eee; color: #3375bb; border: none; border-radius: 4px; padding: 5px 10px; font-size: 0.97em; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; }
+    .platform-btn.ios-btn { color: #000; }
+    .platform-btn.android-btn { color: #388e3c; }
+    .download-options { background: #f4f7fb; border-radius: 6px; padding: 10px 14px; margin-top: 6px; }
+    @media (max-width: 700px) {
+      .wallet-container { flex-direction: column; }
+      .wallet-item { min-width: 0; max-width: unset; }
+    }
+
+    /* 弹窗样式 */
+    .modal-mask {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.45); z-index: 2000; display: none; justify-content: center; align-items: center;
+    }
+    .modal-dialog {
+      background: #fff; border-radius: 10px; max-width: 410px; width: 90vw; max-height: 83vh; overflow-y: auto; box-shadow: 0 6px 32px #0002; padding: 25px 18px 20px 18px; position: relative;
+      animation: modalIn 0.2s;
+    }
+    @keyframes modalIn { from { transform: translateY(30px) scale(.95); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-close { position: absolute; right: 12px; top: 10px; background: none; border: none; font-size: 1.3em; color: #888; cursor: pointer;}
+    .modal-dialog h3 { margin: 0 0 15px 0; color: #3375bb; }
+    .tutorial-step { margin-bottom: 18px; }
+    .tutorial-step img { width: 100%; border-radius: 4px; margin-top: 8px; }
+    .tutorial-step h5 { margin: 0 0 7px 0; font-size: 1.05em; color: #245088; }
+    .tutorial-step p { margin: 6px 0 0 0; color: #666; font-size: 0.97em;}
+  </style>
+</head>
+<body>
+<div id="download-section" class="download-section section">
+  <h2><i class="fas fa-tools"></i> 工具推荐</h2>
+  <div class="section-divider"></div>
+  <div class="tools-tab-nav">
+    <button class="tab-btn active" onclick="switchToolsTab('wallet')">
+      <i class="fas fa-wallet"></i>钱包下载
+    </button>
+    <button class="tab-btn" onclick="switchToolsTab('vpn')">
+      <i class="fas fa-shield-alt"></i>VPN软件
+    </button>
+    <button class="tab-btn" onclick="switchToolsTab('chat')">
+      <i class="fas fa-comments"></i>聊天软件
+    </button>
+  </div>
+  <!-- 钱包下载标签页 -->
+  <div id="wallet-tab" class="tab-content" style="display:block;">
+    <div class="wallet-container">
+
+      <!-- OKX钱包 -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="/files/logos/okx-logo.webp" alt="OKX Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/000000/ffffff?text=OKX'">
+          <div class="wallet-info">
+            <h4>OKX钱包(USDT)</h4>
+            <span class="wallet-desc">欧易官方数字钱包</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://www.okx.com/download" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>官网下载
+          </a>
+          <button class="wallet-btn tutorial-btn" onclick="showTutorialModal('okx')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+      </div>
+
+      <!-- 币安钱包 -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="https://logo.clearbit.com/binance.com" alt="Binance Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/F0B90B/000000?text=币安'">
+          <div class="wallet-info">
+            <h4>币安(Binance)</h4>
+            <span class="wallet-desc">全球领先数字资产交易平台</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://www.binance.com/" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>官网注册
+          </a>
+          <button class="wallet-btn tutorial-btn" onclick="showTutorialModal('binance')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+      </div>
+
+      <!-- K豆钱包 -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="/files/logos/kd-logo.png" alt="K豆钱包 Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/4CAF50/ffffff?text=K豆'">
+          <div class="wallet-info">
+            <h4>K豆钱包</h4>
+            <span class="wallet-desc">安全便捷的数字钱包</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://kdxz08.com/home/#/" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>注册钱包
+          </a>
+          <button class="wallet-btn download-btn" onclick="showDownloadOptions('kdouwallet')">
+            <i class="fas fa-download"></i>钱包下载
+          </button>
+          <button class="wallet-btn tutorial-btn" onclick="showTutorialModal('kd')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+        <!-- 下载选项弹窗 -->
+        <div class="download-options" id="kdouwallet-download" style="display:none;">
+          <div class="download-platform">
+            <a href="https://kdxz08.com/home/#/" class="platform-btn ios-btn" target="_blank">
+              <i class="fab fa-apple"></i> iOS下载(二维码)
+            </a>
+            <a href="/files/downloads/K.apk" class="platform-btn android-btn" download="K豆钱包.apk">
+              <i class="fab fa-android"></i> Android下载
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topay钱包 -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="/files/logos/topay-logo.png" alt="Topay Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/2196F3/ffffff?text=TP'">
+          <div class="wallet-info">
+            <h4>Topay钱包</h4>
+            <span class="wallet-desc">便捷支付钱包解决方案</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://clicktopayjn.com/" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>官网注册
+          </a>
+          <button class="wallet-btn tutorial-btn" onclick="showTutorialModal('topay')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+      </div>
+
+      <!-- EBPay钱包 -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="/files/logos/ebpay-logo.svg" alt="EBPay Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/FF9800/ffffff?text=EB'">
+          <div class="wallet-info">
+            <h4>EBPay钱包</h4>
+            <span class="wallet-desc">专业电子支付钱包</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://kasq-h5.fedpets.com/#/" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>网页版登录
+          </a>
+          <button class="wallet-btn tutorial-btn" onclick="openCorsViewer('https://www.ebpay.org/tutorial')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust Wallet -->
+      <div class="wallet-item">
+        <div class="wallet-header">
+          <img src="https://logo.clearbit.com/trustwallet.com" alt="Trust Wallet Logo" class="wallet-logo" onerror="this.src='https://via.placeholder.com/40x40/3375BB/ffffff?text=TW'">
+          <div class="wallet-info">
+            <h4>Trust Wallet</h4>
+            <span class="wallet-desc">安全的去中心化冷钱包</span>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <a href="https://trustwallet.com/" class="wallet-btn register-btn" target="_blank">
+            <i class="fas fa-user-plus"></i>官网下载
+          </a>
+          <button class="wallet-btn download-btn" onclick="showDownloadOptions('trustwallet')">
+            <i class="fas fa-download"></i>本地下载
+          </button>
+          <button class="wallet-btn tutorial-btn" onclick="showTutorialModal('trustwallet')">
+            <i class="fas fa-graduation-cap"></i>查看教程
+          </button>
+        </div>
+        <!-- 下载选项弹窗 -->
+        <div class="download-options" id="trustwallet-download" style="display:none;">
+          <div class="download-platform">
+            <a href="https://trustwallet.com/" class="platform-btn ios-btn" target="_blank">
+              <i class="fab fa-apple"></i> iOS下载(二维码)
+            </a>
+            <a href="#" class="platform-btn android-btn" onclick="alert('Trust Wallet安卓版请前往官网下载')">
+              <i class="fab fa-android"></i> Android下载
+            </a>
+          </div>
+        </div>
+      </div><!-- Trust Wallet end -->
+
+    </div>
+  </div>
+</div>
+
+<!-- 通用弹窗 -->
+<div class="modal-mask" id="modal-mask">
+  <div class="modal-dialog" id="modal-dialog">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+function switchToolsTab(tab) {
+  document.getElementById('wallet-tab').style.display = (tab === 'wallet') ? 'block' : 'none';
+  // tab按钮高亮
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  if(tab === 'wallet') document.querySelectorAll('.tab-btn')[0].classList.add('active');
+  if(tab === 'vpn') document.querySelectorAll('.tab-btn')[1].classList.add('active');
+  if(tab === 'chat') document.querySelectorAll('.tab-btn')[2].classList.add('active');
+}
+
+// 显示下载选项
+function showDownloadOptions(id) {
+  var panel = document.getElementById(id + '-download');
+  if(panel) panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+}
+
+// 弹窗详细教程内容（可扩展更多钱包）
+const tutorialData = {
+  'trustwallet': {
+    title: "Trust Wallet 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载并安装 Trust Wallet",
+        img: "https://via.placeholder.com/300x200/3375BB/ffffff?text=下载Trust+Wallet",
+        text: "访问官网 trustwallet.com，根据你的手机系统下载安装应用。"
+      },
+      {
+        title: "步骤2：创建新钱包",
+        img: "https://via.placeholder.com/300x200/3375BB/ffffff?text=创建钱包",
+        text: "打开App，点击“创建新钱包”，务必备份好助记词，安全保存，不要泄露。"
+      },
+      {
+        title: "步骤3：添加数字资产",
+        img: "https://via.placeholder.com/300x200/3375BB/ffffff?text=添加资产",
+        text: "在钱包首页点击“添加资产”，选择你需要的币种，按提示完成。"
+      }
+    ]
+  },
+  'okx': {
+    title: "OKX 钱包教程",
+    steps: [
+      {
+        title: "步骤1：下载OKX钱包",
+        img: "https://www.okx.com/cdn-waf/static/media/download-banner.4d4e7dc4.png",
+        text: "前往 OKX 官网或应用市场下载安装 OKX 钱包。"
+      },
+      {
+        title: "步骤2：注册并实名认证",
+        img: "https://via.placeholder.com/300x200/000000/ffffff?text=实名认证",
+        text: "注册账号后，按提示完成实名认证，保障资金安全。"
+      },
+      {
+        title: "步骤3：充值和转账",
+        img: "https://via.placeholder.com/300x200/000000/ffffff?text=充值转账",
+        text: "进入钱包页面可进行充值、提现和资产管理。"
+      }
+    ]
+  },
+  'binance': {
+    title: "币安Binance钱包教程",
+    steps: [
+      {
+        title: "步骤1：访问币安官网注册",
+        img: "https://via.placeholder.com/300x200/F0B90B/ffffff?text=注册币安",
+        text: "进入 https://www.binance.com/ ，点击注册，输入邮箱和密码注册账号。"
+      },
+      {
+        title: "步骤2：下载币安App",
+        img: "https://via.placeholder.com/300x200/F0B90B/000000?text=下载App",
+        text: "注册后可根据系统提示下载安装币安App，便于随时管理资产。"
+      },
+      {
+        title: "步骤3：安全设置和充值",
+        img: "https://via.placeholder.com/300x200/F0B90B/000000?text=安全设置",
+        text: "建议开启谷歌验证和资金密码，并在资产页面进行充值或交易。"
+      }
+    ]
+  },
+  'kd': {
+    title: "K豆钱包教程",
+    steps: [
+      {
+        title: "步骤1：下载K豆钱包",
+        img: "https://via.placeholder.com/300x200/4CAF50/ffffff?text=下载K豆钱包",
+        text: "访问官方下载页，选择对应系统下载安装K豆钱包。"
+      },
+      {
+        title: "步骤2：注册钱包账号",
+        img: "https://via.placeholder.com/300x200/4CAF50/ffffff?text=注册账号",
+        text: "打开App，填写手机号和验证码注册钱包账号。"
+      },
+      {
+        title: "步骤3：资产管理",
+        img: "https://via.placeholder.com/300x200/4CAF50/ffffff?text=资产管理",
+        text: "进入钱包后可添加、转账和管理数字资产。"
+      }
+    ]
+  },
+  'topay': {
+    title: "Topay钱包使用教程",
+    steps: [
+      {
+        title: "步骤1：访问官网注册账户",
+        img: "https://via.placeholder.com/300x200/2196F3/ffffff?text=注册Topay",
+        text: "访问 https://clicktopayjn.com/ ，注册你的Topay钱包账号。"
+      },
+      {
+        title: "步骤2：实名认证",
+        img: "https://via.placeholder.com/300x200/2196F3/ffffff?text=实名认证",
+        text: "注册后请按指引完成实名认证。"
+      },
+      {
+        title: "步骤3：充值与转账",
+        img: "https://via.placeholder.com/300x200/2196F3/ffffff?text=充值转账",
+        text: "在钱包页面可进行充值和转账操作。"
+      }
+    ]
+  }
+};
+
+// 打开弹窗
+function showTutorialModal(wallet) {
+  const modal = document.getElementById('modal-mask');
+  const content = document.getElementById('modal-content');
+  const data = tutorialData[wallet];
+  if (!data) { content.innerHTML = "<p>暂无该钱包教程</p>"; modal.style.display = "flex"; return; }
+  let html = `<h3>${data.title}</h3>`;
+  data.steps.forEach(step => {
+    html += `<div class="tutorial-step">
+      <h5>${step.title}</h5>
+      <img src="${step.img}" alt="${step.title}">
+      <p>${step.text}</p>
+    </div>`;
+  });
+  content.innerHTML = html;
+  modal.style.display = "flex";
+}
+function closeModal() {
+  document.getElementById('modal-mask').style.display = "none";
+}
+function openCorsViewer(url) {
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>

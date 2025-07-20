@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>APP下载推荐</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background: #f6f8fa;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .page-content {
+            max-width: 920px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #e0e0e0;
+            padding: 32px 18px 36px 18px;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .page-title {
+            color: #2563eb;
+            font-size: 2em;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+        }
+        .page-title i {
+            margin-right: 7px;
+        }
+        .page-subtitle {
+            color: #666;
+            font-size: 1.06em;
+            margin: 0 0 4px 0;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .download-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            border-radius: 16px;
+            min-height: 140px;
+            text-decoration: none;
+            transition: box-shadow 0.3s, transform 0.14s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            margin-bottom: 0;
+            font-size: 1em;
+        }
+        .download-item:hover {
+            box-shadow: 0 6px 24px rgba(59,130,246,0.18);
+            transform: translateY(-2px) scale(1.03);
+        }
+        /* 区分不同类型的卡片 */
+        .download-item.official {
+            border: 2px solid #2563eb;
+            background: linear-gradient(135deg, #4d8dff 0%, #7bb6f7 100%);
+        }
+        .download-item.android {
+            border: 2px solid #8bc34a;
+            background: linear-gradient(135deg, #a4c639 0%, #8bc34a 100%);
+        }
+        .download-item.ios {
+            border: 2px solid #007aff;
+            background: linear-gradient(135deg, #007aff 0%, #0051d0 100%);
+        }
+        .download-item i {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        .download-label {
+            font-size: 1.1em;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .download-desc {
+            font-size: 0.98em;
+            margin-top: 10px;
+            color: #ecf8ff;
+            opacity: 0.87;
+        }
+        @media (max-width: 600px) {
+            .page-content {
+                padding: 10px 1px 25px 1px;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .download-grid {
+                gap: 13px;
+            }
+            .download-item {
+                padding: 22px 10px;
+                min-height: 98px;
+            }
+            .download-item i { font-size: 2em; }
+            .download-label { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ======================== APP下载页面 ======================== -->
+    <div id="app-download-page" class="page-content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-download"></i>
+                APP下载推荐
+            </h1>
+            <p class="page-subtitle">精选官方应用下载，安全可靠的移动体验</p>
+        </div>
+        
+        <div class="download-grid">
+            <!-- 官方下载 -->
+            <a href="https://byphoto01.com/app/mg_xLYK" class="download-item official" target="_blank">
+                <i class="fas fa-star"></i>
+                <span class="download-label">官方下载</span>
+                <span class="download-desc">适用全部平台，推荐优先安装</span>
+            </a>
+            <!-- 安卓1 -->
+            <a href="https://xt.xinqianf152.top/2ySd" class="download-item android" target="_blank">
+                <i class="fab fa-android"></i>
+                <span class="download-label">安卓系统1</span>
+                <span class="download-desc">Android专属高速通道</span>
+            </a>
+            <!-- 安卓2 -->
+            <a href="https://your-android2-link.com/" class="download-item android" target="_blank">
+                <i class="fab fa-android"></i>
+                <span class="download-label">安卓系统2</span>
+                <span class="download-desc">备用下载，适合国内网络</span>
+            </a>
+            <!-- 苹果1 -->
+            <a href="https://xt.xinqianf152.top/s/upwrr" class="download-item ios" target="_blank">
+                <i class="fab fa-apple"></i>
+                <span class="download-label">苹果系统1</span>
+                <span class="download-desc">iOS专属描述文件</span>
+            </a>
+            <!-- 苹果2 -->
+            <a href="https://your-ios2-link.com/" class="download-item ios" target="_blank">
+                <i class="fab fa-apple"></i>
+                <span class="download-label">苹果系统2</span>
+                <span class="download-desc">App Store/备用下载</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

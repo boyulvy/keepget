@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>聊天软件推荐与教程</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body { font-family: 'Microsoft YaHei', Arial, sans-serif; background: #f6f8fa; margin: 0; padding: 0; }
+    .chat-section { max-width: 900px; margin: 32px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #e0e0e0; padding: 26px 30px; }
+    .chat-section h2 { font-size: 2em; margin-bottom: 12px; }
+    .chat-list { display: flex; flex-wrap: wrap; gap: 22px; }
+    .chat-item { background: #f9fafb; border-radius: 8px; box-shadow: 0 1px 3px #ececec; padding: 18px 14px; flex: 1 1 270px; min-width: 270px; max-width: 320px; display: flex; flex-direction: column; }
+    .chat-header { display: flex; align-items: center; margin-bottom: 10px; }
+    .chat-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; margin-right: 14px; }
+    .chat-info h4 { margin: 0; font-size: 1.15em; color: #3375bb; }
+    .chat-desc { color: #888; font-size: 0.97em; }
+    .chat-actions { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+    .chat-btn { background: #3375bb; color: #fff; border: none; border-radius: 5px; padding: 6px 12px; font-size: 0.97em; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.2s; }
+    .chat-btn:hover { background: #235892; }
+    @media (max-width: 700px) {
+      .chat-list { flex-direction: column; }
+      .chat-item { min-width: 0; max-width: unset; }
+    }
+    /* 弹窗样式 */
+    .modal-mask {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.45); z-index: 2000; display: none; justify-content: center; align-items: center;
+    }
+    .modal-dialog {
+      background: #fff; border-radius: 10px; max-width: 410px; width: 90vw; max-height: 83vh; overflow-y: auto; box-shadow: 0 6px 32px #0002; padding: 25px 18px 20px 18px; position: relative;
+      animation: modalIn 0.2s;
+    }
+    @keyframes modalIn { from { transform: translateY(30px) scale(.95); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-close { position: absolute; right: 12px; top: 10px; background: none; border: none; font-size: 1.3em; color: #888; cursor: pointer;}
+    .modal-dialog h3 { margin: 0 0 15px 0; color: #3375bb; }
+    .tutorial-step { margin-bottom: 18px; }
+    .tutorial-step img { width: 100%; border-radius: 4px; margin-top: 8px; }
+    .tutorial-step h5 { margin: 0 0 7px 0; font-size: 1.05em; color: #245088; }
+    .tutorial-step p { margin: 6px 0 0 0; color: #666; font-size: 0.97em;}
+  </style>
+</head>
+<body>
+<div class="chat-section">
+  <h2><i class="fas fa-comments"></i> 聊天软件推荐</h2>
+  <div class="chat-list">
+
+    <!-- Telegram -->
+    <div class="chat-item">
+      <div class="chat-header">
+        <img src="https://telegram.org/img/t_logo.png" alt="Telegram" class="chat-logo">
+        <div class="chat-info">
+          <h4>Telegram</h4>
+          <span class="chat-desc">全球流行的加密聊天软件，支持多平台。</span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <a href="https://telegram.org/" class="chat-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="chat-btn" onclick="showTutorialModal('telegram')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="chat-item">
+      <div class="chat-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="chat-logo">
+        <div class="chat-info">
+          <h4>WhatsApp</h4>
+          <span class="chat-desc">全球最大的跨国通讯软件，端对端加密。</span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <a href="https://www.whatsapp.com/" class="chat-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="chat-btn" onclick="showTutorialModal('whatsapp')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- Discord -->
+    <div class="chat-item">
+      <div class="chat-header">
+        <img src="https://cdn.worldvectorlogo.com/logos/discord-6.svg" alt="Discord" class="chat-logo">
+        <div class="chat-info">
+          <h4>Discord</h4>
+          <span class="chat-desc">适合社区与游戏玩家的多功能聊天工具。</span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <a href="https://discord.com/" class="chat-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="chat-btn" onclick="showTutorialModal('discord')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- Signal -->
+    <div class="chat-item">
+      <div class="chat-header">
+        <img src="https://signal.org/assets/og_image.png" alt="Signal" class="chat-logo">
+        <div class="chat-info">
+          <h4>Signal</h4>
+          <span class="chat-desc">以隐私为核心的端对端加密聊天工具。</span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <a href="https://signal.org/" class="chat-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="chat-btn" onclick="showTutorialModal('signal')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+    <!-- Line -->
+    <div class="chat-item">
+      <div class="chat-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="Line" class="chat-logo">
+        <div class="chat-info">
+          <h4>Line</h4>
+          <span class="chat-desc">亚洲流行社交通讯工具，支持丰富贴纸和通话。</span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <a href="https://line.me/zh-hans/" class="chat-btn" target="_blank">
+          <i class="fas fa-globe"></i> 官网下载
+        </a>
+        <button class="chat-btn" onclick="showTutorialModal('line')">
+          <i class="fas fa-graduation-cap"></i> 查看教程
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 通用弹窗 -->
+<div class="modal-mask" id="modal-mask">
+  <div class="modal-dialog" id="modal-dialog">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const tutorialData = {
+  'telegram': {
+    title: "Telegram 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载安装Telegram",
+        img: "https://telegram.org/img/tl_card_android.png",
+        text: "访问官网下载适合你设备的Telegram客户端。"
+      },
+      {
+        title: "步骤2：注册账号",
+        img: "https://via.placeholder.com/350x180/37AEE2/ffffff?text=手机号注册",
+        text: "输入手机号，接收短信验证码后即可注册。"
+      },
+      {
+        title: "步骤3：加入群组或添加好友",
+        img: "https://via.placeholder.com/350x180/37AEE2/ffffff?text=加入群组",
+        text: "可通过邀请链接或搜索用户名添加好友或加入公共群组。"
+      }
+    ]
+  },
+  'whatsapp': {
+    title: "WhatsApp 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载安装WhatsApp",
+        img: "https://www.whatsapp.com/img/hero/hero-desktop_2x.png",
+        text: "前往官网或应用市场下载WhatsApp。"
+      },
+      {
+        title: "步骤2：手机号注册",
+        img: "https://via.placeholder.com/350x180/25D366/ffffff?text=手机号验证",
+        text: "输入手机号，根据提示完成短信验证码验证。"
+      },
+      {
+        title: "步骤3：添加联系人与聊天",
+        img: "https://via.placeholder.com/350x180/25D366/ffffff?text=添加联系人",
+        text: "通过通讯录或扫码添加好友，开始聊天。"
+      }
+    ]
+  },
+  'discord': {
+    title: "Discord 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载安装Discord",
+        img: "https://cdn.discordapp.com/attachments/872442235107459132/1024686131948197939/unknown.png",
+        text: "官网提供多平台版本，下载并安装合适的客户端。"
+      },
+      {
+        title: "步骤2：邮箱注册账号",
+        img: "https://via.placeholder.com/350x180/5865F2/ffffff?text=邮箱注册",
+        text: "输入邮箱、用户名和密码，完成邮箱验证即可注册。"
+      },
+      {
+        title: "步骤3：加入服务器",
+        img: "https://via.placeholder.com/350x180/5865F2/ffffff?text=加入服务器",
+        text: "通过邀请链接加入感兴趣的社区服务器。"
+      }
+    ]
+  },
+  'signal': {
+    title: "Signal 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载安装Signal",
+        img: "https://signal.org/assets/screenshots/android/device-contact-list-dark.png",
+        text: "访问官网或应用市场下载安装Signal。"
+      },
+      {
+        title: "步骤2：手机号注册",
+        img: "https://via.placeholder.com/350x180/3A76F0/ffffff?text=手机号验证",
+        text: "输入手机号，接收验证短信即可注册。"
+      },
+      {
+        title: "步骤3：加密聊天",
+        img: "https://via.placeholder.com/350x180/3A76F0/ffffff?text=加密对话",
+        text: "添加联系人后即可体验端对端加密聊天。"
+      }
+    ]
+  },
+  'line': {
+    title: "Line 使用教程",
+    steps: [
+      {
+        title: "步骤1：下载安装Line",
+        img: "https://scdn.line-apps.com/n/line_regulation/files/LINE_PC_Mac_Download_zh-Hans.png",
+        text: "前往Line官网或应用市场下载安装。"
+      },
+      {
+        title: "步骤2：注册账号",
+        img: "https://via.placeholder.com/350x180/06C755/ffffff?text=手机号/邮箱注册",
+        text: "支持手机号或邮箱注册，按提示完成验证。"
+      },
+      {
+        title: "步骤3：添加好友与通讯",
+        img: "https://via.placeholder.com/350x180/06C755/ffffff?text=添加好友",
+        text: "通过手机号、ID或二维码添加好友，享受丰富社交功能。"
+      }
+    ]
+  }
+};
+
+function showTutorialModal(app) {
+  const modal = document.getElementById('modal-mask');
+  const content = document.getElementById('modal-content');
+  const data = tutorialData[app];
+  if (!data) { content.innerHTML = "<p>暂无该聊天软件教程</p>"; modal.style.display = "flex"; return; }
+  let html = `<h3>${data.title}</h3>`;
+  data.steps.forEach(step => {
+    html += `<div class="tutorial-step">
+      <h5>${step.title}</h5>
+      <img src="${step.img}" alt="${step.title}">
+      <p>${step.text}</p>
+    </div>`;
+  });
+  content.innerHTML = html;
+  modal.style.display = "flex";
+}
+function closeModal() {
+  document.getElementById('modal-mask').style.display = "none";
+}
+</script>
+</body>
+</html>
